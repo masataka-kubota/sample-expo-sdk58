@@ -1,12 +1,12 @@
-# main, develop branches protection rules
+# main branch protection rules
 prohibit_protected_branch_commits() {
   current_branch="$(git symbolic-ref --quiet --short HEAD 2>/dev/null || echo "")"
 
   # Skip protection in detached HEAD (e.g. during rebase or CI)
   [ -z "$current_branch" ] && return 0
 
-  if [ "$current_branch" = "main" ] || [ "$current_branch" = "develop" ]; then
-    echo "⚠️ Warning: Direct commits on the 'main' or 'develop' branches are prohibited."
+  if [ "$current_branch" = "main" ]; then
+    echo "⚠️ Warning: Direct commits on the 'main' branch are prohibited."
     echo "➡️ Please switch to a feature/fix branch and open a PR."
     exit 1
   fi
@@ -19,11 +19,6 @@ get_base_branch() {
   # Skip protection in detached HEAD (e.g. during rebase or CI)
   [ -z "$current_branch" ] && return 0
 
-  if [ "$current_branch" = "develop" ]; then
-    # develop -> main
-    echo "origin/main"
-  else
-    # feat/fix/etc -> develop
-    echo "origin/develop"
-  fi
+  # PoC policy: feat/fix/etc -> main
+  echo "origin/main"
 }
