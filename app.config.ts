@@ -29,7 +29,7 @@ const getVariantConfig = (): VariantConfig => {
 
   if (!isAppVariant(variant)) {
     throw new Error(
-      `Invalid APP_VARIANT "${variant}". Expected one of: ${Object.keys(VARIANT_CONFIGS).join(', ')}`,
+      `Invalid app variant "${variant}". Set APP_VARIANT or EAS_BUILD_PROFILE to one of: ${Object.keys(VARIANT_CONFIGS).join(', ')}`,
     );
   }
 
