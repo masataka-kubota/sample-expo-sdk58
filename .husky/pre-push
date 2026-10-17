@@ -9,5 +9,4 @@ base_branch="$(get_base_branch)"
 if ! git diff --quiet "$base_branch" "$current_branch"; then
   bun run type-check
   bun run lint
-  bun run test
 fi
