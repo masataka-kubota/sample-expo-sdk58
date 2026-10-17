@@ -9,11 +9,11 @@ interface VariantConfig {
 
 const VARIANT_CONFIGS: Record<AppVariant, VariantConfig> = {
   development: {
-    appName: 'sample-expo-sdk58',
+    appName: '(Dev)sample-expo-sdk58',
     bundleIdentifier: 'com.sampleexposdk58.dev',
   },
   preview: {
-    appName: 'sample-expo-sdk58 Preview',
+    appName: '(Preview)sample-expo-sdk58',
     bundleIdentifier: 'com.sampleexposdk58.preview',
   },
   production: {
