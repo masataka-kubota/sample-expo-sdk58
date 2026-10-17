@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+set -e
+
+. "$(dirname "$0")/lib/functions.sh"
+
+current_branch="$(git symbolic-ref --quiet --short HEAD 2>/dev/null || echo "")"
+base_branch="$(get_base_branch)"
+
+if ! git diff --quiet "$base_branch" "$current_branch"; then
+  bun run type-check
+  bun run lint
+  bun run test
+fi
