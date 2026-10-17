@@ -1,7 +1,20 @@
 {
   "name": "sample-expo-sdk58",
   "version": "1.0.0",
+  "private": true,
   "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "type-check": "tsc --noEmit",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "prepare": "husky"
+  },
   "dependencies": {
     "@expo/ui": "~58.0.17",
     "expo": "~58.0.10",
@@ -29,22 +42,11 @@
   },
   "devDependencies": {
     "@types/react": "~19.3.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
     "oxfmt": "^0.73.0",
     "oxlint": "^1.88.0",
     "oxlint-config-universe": "^0.2.0",
     "typescript": "~6.0.3"
-  },
-  "scripts": {
-    "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "type-check": "tsc --noEmit",
-    "lint": "oxlint .",
-    "lint:fix": "oxlint --fix .",
-    "format": "oxfmt .",
-    "format:check": "oxfmt --check ."
-  },
-  "private": true
+  }
 }

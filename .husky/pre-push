@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+set -e
+
+. "$(dirname "$0")/lib/functions.sh"
+
+current_branch="$(git symbolic-ref --quiet --short HEAD 2>/dev/null || echo "")"
+
+if [ -z "$current_branch" ]; then
+  echo "Detached HEAD detected; skipping pre-push checks."
+  exit 0
+fi
+
+base_branch="$(get_base_branch)"
+
+if [ -z "$base_branch" ]; then
+  echo "No base branch available; skipping pre-push checks."
+  exit 0
+fi
+
+if ! git diff --quiet "$base_branch" "$current_branch"; then
+  bun run type-check
+  bun run lint
+fi
