@@ -2,7 +2,7 @@
 prohibit_protected_branch_commits() {
   current_branch="$(git symbolic-ref --quiet --short HEAD 2>/dev/null || echo "")"
 
-  # Skip protection in detached HEAD (e.g. during rebase or CI)
+  # Skip protection while detached HEAD has no branch context.
   [ -z "$current_branch" ] && return 0
 
   if [ "$current_branch" = "main" ]; then
@@ -12,12 +12,15 @@ prohibit_protected_branch_commits() {
   fi
 }
 
-# Get base branch for comparing diff
+# Get base branch for comparing diff.
+# Detached HEADs do not have a branch context, so fall back to the PoC default.
 get_base_branch() {
   current_branch="$(git symbolic-ref --quiet --short HEAD 2>/dev/null || echo "")"
 
-  # Skip protection in detached HEAD (e.g. during rebase or CI)
-  [ -z "$current_branch" ] && return 0
+  if [ -z "$current_branch" ]; then
+    echo "origin/main"
+    return 0
+  fi
 
   # PoC policy: feat/fix/etc -> main
   echo "origin/main"
